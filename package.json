@@ -1,21 +1,53 @@
 {
-  "name": "durak-game",
+  "name": "durak",
   "version": "1.0.0",
-  "description": "Durak card game with Socket.IO",
+  "description": "Многопользовательская карточная игра Дурак",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "socket.io": "^4.7.2"
+    "start": "node dist/server.js",
+    "dev": "nodemon server.js",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "webpack --config webpack.server.js --mode production",
+    "build:client": "webpack --config webpack.client.js --mode production",
+    "build:dev": "npm run build:server:dev && npm run build:client:dev",
+    "build:server:dev": "webpack --config webpack.server.js --mode development",
+    "build:client:dev": "webpack --config webpack.client.js --mode development",
+    "clean": "rm -rf dist",
+    "serve": "node dist/server.js"
   },
   "keywords": [
     "durak",
     "card-game",
-    "socket.io",
-    "multiplayer"
+    "multiplayer",
+    "socket.io"
   ],
-  "author": "",
-  "license": "MIT"
+  "author": "lakladon",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lakladon/durak.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lakladon/durak/issues"
+  },
+  "homepage": "https://github.com/lakladon/durak#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0",
+    "nodemon": "^3.1.0",
+    "html-webpack-plugin": "^5.6.0",
+    "css-loader": "^6.10.0",
+    "style-loader": "^3.3.4",
+    "copy-webpack-plugin": "^12.0.2",
+    "mini-css-extract-plugin": "^2.8.0",
+    "terser-webpack-plugin": "^5.3.10"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
