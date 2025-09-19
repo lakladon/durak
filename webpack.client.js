@@ -8,21 +8,11 @@ module.exports = {
   entry: './public/game.js',
   output: {
     path: path.resolve(__dirname, 'dist/public'),
-    filename: 'bundle.[contenthash].js',
+    filename: 'bundle.js',
     clean: true
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
@@ -32,15 +22,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      filename: 'index.html',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true
-      }
+      filename: 'index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: 'style.[contenthash].css'
+      filename: 'style.css'
     }),
     new CopyWebpackPlugin({
       patterns: [
