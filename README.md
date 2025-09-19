@@ -137,11 +137,10 @@ npm run build
 ```
 Настройте reverse proxy (Nginx)
 
-nginx
+```
 server {
     listen 80;
     server_name your-domain.com;
-    
     location / {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
@@ -151,6 +150,7 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 }
+```
 Запустите с PM2
 
 bash
