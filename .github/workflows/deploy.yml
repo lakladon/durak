@@ -1,29 +1,42 @@
-name: Build and Test
+name: Deploy Durak Game
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main, master ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
-        
+        cache: 'npm'  # Кэширование node_modules
+
     - name: Install dependencies
-      run: npm ci
-      
-    - name: Build application
-      run: npm run build
-      
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
+      run: npm install  # Используем install вместо ci
+
+    - name: Build application (if needed)
+      run: npm run build --if-present
+
+    - name: Test application
+      run: npm test --if-present
+
+    - name: Deploy to server via SSH
+      uses: appleboy/ssh-action@v1.0.3
       with:
-        name: built-app
-        path: dist/
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: ${{ secrets.SERVER_PORT || 22 }}
+        script: |
+          cd /path/to/your/app
+          git pull origin main
+          npm install --production
+          # Перезапускаем приложение
+          pm2 restart durak-app || pm2 start server.js --name durak-app
