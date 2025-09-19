@@ -1,5 +1,11 @@
-# Дурак - Многопользовательская Карточная Игра
+<div align="center">
 
+
+
+
+# Дурак 
+[![Deploy Durak Game](https://github.com/lakladon/durak/actions/workflows/deploy.yml/badge.svg)](https://github.com/lakladon/durak/actions/workflows/deploy.yml)
+</div>
 
 Классическая русская карточная игра "Дурак" в реальном времени с онлайн-мультиплеером. Играйте с друзьями через браузер!
 
